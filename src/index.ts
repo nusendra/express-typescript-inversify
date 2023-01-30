@@ -1,16 +1,18 @@
-import express, { Express, Request, Response } from "express";
-import routes from "./routes";
-import config from "./config/index";
+import "reflect-metadata";
+import { InversifyExpressServer } from "inversify-express-utils";
+import config from "./config";
+import container from "./container/container";
+import middlewares from "./middlewares";
 
-const app: Express = express();
-const port = config.port;
+(async () => {
+  const server = new InversifyExpressServer(container);
 
-app.use(routes);
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-});
-
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
-});
+  server
+    .setConfig((app) => {
+      middlewares(app, container);
+    })
+    .build()
+    .listen(config.port, () =>
+      console.log(`server runnin on port ${config.port}`)
+    );
+})();
