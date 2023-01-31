@@ -1,4 +1,4 @@
-import { TYPES } from "@/container/types";
+import { TYPES } from "../../container/types";
 import { inject } from "inversify";
 import { Request, Response } from "express";
 import {
