@@ -1,6 +1,5 @@
 import { inject, injectable } from "inversify";
 import { TYPES } from "../../container/types";
-import { CreateProductDto } from "./dtos/create-product.dto";
 import { IProductRepository } from "./interfaces/IProduct.repository";
 import { IProductService } from "./interfaces/IProduct.service";
 import { IProduct } from "./product.model";
@@ -12,8 +11,13 @@ export class ProductService implements IProductService {
     private readonly productRepo: IProductRepository
   ) {}
 
-  public async create(dto: CreateProductDto): Promise<IProduct> {
-    const result = await this.productRepo.create(dto);
+  public async getById(id: string): Promise<IProduct | null> {
+    const result = await this.productRepo.findById(id);
+    return result;
+  }
+
+  public async getAll(): Promise<IProduct[]> {
+    const result = await this.productRepo.findAll();
     return result;
   }
 }
