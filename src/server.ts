@@ -4,6 +4,7 @@ import { json, urlencoded } from "express";
 import helmet from "helmet";
 import express, { Express } from "express";
 import { TYPES } from "./container/types";
+import config from "./config";
 
 @injectable()
 export class Server {
@@ -15,7 +16,12 @@ export class Server {
     this.expressServer = express();
     this.expressServer.use(json());
     this.expressServer.use(urlencoded({ extended: true }));
-    this.expressServer.use(helmet());
+    this.expressServer.use(
+      helmet({
+        contentSecurityPolicy:
+          config.nodeEnv === "production" ? undefined : false,
+      })
+    );
     this.graphqlServer.express = this.expressServer;
   }
 
