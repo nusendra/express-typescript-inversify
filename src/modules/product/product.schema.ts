@@ -1,9 +1,9 @@
 import { gql } from "apollo-server-express";
 
 const typeDefs = gql`
-  type Query {
-    hello: Hello
-    product: Product
+  type Product {
+    name: String
   }
 `;
+
 export default typeDefs;

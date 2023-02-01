@@ -3,6 +3,8 @@ export const TYPES = {
   GraphQLServer: Symbol.for("GraphQLServer"),
   Server: Symbol.for("Server"),
 
+  ProductResolver: Symbol.for("ProductResolver"),
+
   // Middlewares
   AuthMiddleware: Symbol.for("AuthMiddleware"),
 

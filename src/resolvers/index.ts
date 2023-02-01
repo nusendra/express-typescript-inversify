@@ -1,4 +1,4 @@
-import { Query } from "./query";
+import { ProductQuery } from "./queries/product";
 
 export class Resolvers {
   /**
@@ -6,7 +6,9 @@ export class Resolvers {
    */
   public getAll(): any {
     return {
-      Query,
+      Query: {
+        ...ProductQuery,
+      },
     };
   }
 }

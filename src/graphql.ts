@@ -27,9 +27,7 @@ export class GraphqlServer {
     const server = new ApolloServer({
       schema,
       plugins: [
-        ApolloServerPluginLandingPageGraphQLPlayground({
-          // options
-        }),
+        ApolloServerPluginLandingPageGraphQLPlayground({}),
         ApolloServerPluginLandingPageDisabled(),
       ],
     });
