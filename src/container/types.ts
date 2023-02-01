@@ -1,5 +1,5 @@
 export const TYPES = {
-  IDatabaseService: Symbol.for("IDatabaseService"),
+  AuthMiddleware: Symbol.for("AuthMiddleware"),
 
   // modules
   IProductService: Symbol.for("IProductService"),

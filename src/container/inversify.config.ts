@@ -13,6 +13,7 @@ import { IProductRepository } from "../modules/product/interfaces/IProduct.repos
 import { OrderRepository } from "../modules/order/order.repository";
 import { IOrderRepository } from "../modules/order/interfaces/IOrder.repository";
 
+// Middlewares
 export const bindings = new ContainerModule((bind) => {
   bind<IProductService>(TYPES.IProductService).to(ProductService);
   bind<IOrderService>(TYPES.IOrderService).to(OrderService);

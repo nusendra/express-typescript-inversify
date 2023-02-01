@@ -4,8 +4,9 @@ import { Request, Response } from "express";
 import { controller, httpGet, requestParam } from "inversify-express-utils";
 import { IProductService } from "./interfaces/IProduct.service";
 import { idDto } from "../../shared/id.dto";
+import { authMiddleware } from "../../middlewares/auth";
 
-@controller("/products")
+@controller("/products", authMiddleware())
 export class ProductController {
   constructor(
     @inject(TYPES.IProductService)
