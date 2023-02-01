@@ -4,6 +4,10 @@ import config from "./config";
 import { injectable } from "inversify";
 import { Resolvers } from "./resolvers/index";
 import { makeExecutableSchema } from "@graphql-tools/schema";
+import {
+  ApolloServerPluginLandingPageGraphQLPlayground,
+  ApolloServerPluginLandingPageDisabled,
+} from "apollo-server-core";
 import { aggregatedSchemas } from "./schemas";
 
 @injectable()
@@ -20,7 +24,15 @@ export class GraphqlServer {
       typeDefs: aggregatedSchemas,
     });
 
-    const server = new ApolloServer({ schema });
+    const server = new ApolloServer({
+      schema,
+      plugins: [
+        ApolloServerPluginLandingPageGraphQLPlayground({
+          // options
+        }),
+        ApolloServerPluginLandingPageDisabled(),
+      ],
+    });
     await server.start();
 
     server.applyMiddleware({ app: this.app, path: "/graphql" });

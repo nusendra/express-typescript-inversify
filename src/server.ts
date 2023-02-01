@@ -20,7 +20,6 @@ export class Server {
   }
 
   public start(): void {
-    console.log("aa");
     this.graphqlServer.start();
   }
 }
