@@ -1,6 +1,9 @@
 import { ContainerModule } from "inversify";
 import { TYPES } from "./types";
 
+import { GraphqlServer } from "../graphql";
+import { Server } from "../server";
+
 // Services
 import { ProductService } from "../modules/product/product.service";
 import { IProductService } from "../modules/product/interfaces/IProduct.service";
@@ -15,6 +18,9 @@ import { IOrderRepository } from "../modules/order/interfaces/IOrder.repository"
 
 // Middlewares
 export const bindings = new ContainerModule((bind) => {
+  bind<GraphqlServer>(TYPES.GraphQLServer).to(GraphqlServer);
+  bind<Server>(TYPES.Server).to(Server);
+
   bind<IProductService>(TYPES.IProductService).to(ProductService);
   bind<IOrderService>(TYPES.IOrderService).to(OrderService);
 
