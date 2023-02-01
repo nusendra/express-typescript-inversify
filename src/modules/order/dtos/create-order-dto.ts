@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsInt, Min, IsString } from "class-validator";
+import {
+  ArrayNotEmpty,
+  IsNotEmpty,
+  IsInt,
+  Min,
+  IsString,
+} from "class-validator";
 import { Type } from "class-transformer";
 
 class ProductItem {
@@ -16,12 +22,13 @@ class ProductItem {
   productId: string;
 }
 
-export class CreateOrderDto {
-  @IsNotEmpty()
-  @IsString()
-  customerId: string;
-
-  @IsNotEmpty()
+export class RequestCreateOrderDto {
+  @ArrayNotEmpty()
   @Type(() => ProductItem)
   items: [ProductItem];
+}
+
+export class CreateOrderDto extends RequestCreateOrderDto {
+  @IsString()
+  customerId?: string;
 }

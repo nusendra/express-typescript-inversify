@@ -10,15 +10,20 @@ import {
 } from "inversify-express-utils";
 import { IOrderService } from "./interfaces/IOrder.service";
 import { idDto } from "../../shared/id.dto";
-import { CreateOrderDto } from "./dtos/create-order-dto";
+import { CreateOrderDto, RequestCreateOrderDto } from "./dtos/create-order-dto";
+import { authMiddleware } from "../../middlewares/auth";
+import {
+  validateBody,
+  validateParam,
+} from "../../middlewares/request-validator";
 
-@controller("/orders")
+@controller("/orders", authMiddleware())
 export class OrderController {
   constructor(
     @inject(TYPES.IOrderService) private readonly orderService: IOrderService
   ) {}
 
-  @httpGet("/:id")
+  @httpGet("/:id", validateParam(idDto))
   async getById(@requestParam() param: idDto, req: Request, res: Response) {
     const { id } = param;
     const result = await this.orderService.getById(id);
@@ -31,12 +36,16 @@ export class OrderController {
     return result;
   }
 
-  @httpPost("/")
+  @httpPost("/", validateBody(RequestCreateOrderDto))
   async create(
-    @requestBody() body: CreateOrderDto,
+    @requestBody() body: RequestCreateOrderDto,
     req: Request,
     res: Response
   ) {
+    const customerId = req.app.locals.userInfo.user_id;
+    const payload: CreateOrderDto = body;
+    payload.customerId = customerId;
+
     const result = await this.orderService.create(body);
     return res.status(200).json(result);
   }

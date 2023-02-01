@@ -16,9 +16,13 @@ const OrderSchema: Schema = new Schema(
     customerId: { type: Schema.Types.String, required: true },
     items: [
       {
-        product: { type: Schema.Types.ObjectId, ref: "Product" },
-        amount: { type: Schema.Types.Number },
-        price: { type: Schema.Types.Number },
+        product: {
+          type: Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+        amount: { type: Schema.Types.Number, required: true },
+        price: { type: Schema.Types.Number, required: true },
       },
     ],
   },

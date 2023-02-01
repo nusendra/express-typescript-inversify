@@ -1,9 +1,10 @@
 import "reflect-metadata";
 import { InversifyExpressServer } from "inversify-express-utils";
 import { DbConnection } from "./db/utils/connection";
+import { json, urlencoded } from "express";
+import helmet from "helmet";
 import config from "./config";
 import container from "./container/container";
-import middlewares from "./middlewares";
 
 DbConnection.initConnection().then(() => {
   DbConnection.setAutoReconnect();
@@ -12,7 +13,9 @@ DbConnection.initConnection().then(() => {
 
   server
     .setConfig((app) => {
-      middlewares(app, container);
+      app.use(json());
+      app.use(urlencoded({ extended: true }));
+      app.use(helmet());
     })
     .build()
     .listen(config.port, () =>
