@@ -5,6 +5,7 @@ import { controller, httpGet, requestParam } from "inversify-express-utils";
 import { IProductService } from "./interfaces/IProduct.service";
 import { idDto } from "../../shared/id.dto";
 import { authMiddleware } from "../../middlewares/auth";
+import { validateParam } from "../../middlewares/request-validator";
 
 @controller("/products", authMiddleware())
 export class ProductController {
@@ -13,7 +14,7 @@ export class ProductController {
     private readonly productService: IProductService
   ) {}
 
-  @httpGet("/:id")
+  @httpGet("/:id", validateParam(idDto))
   async getById(@requestParam() param: idDto, req: Request, res: Response) {
     const { id } = param;
     const result = await this.productService.getById(id);

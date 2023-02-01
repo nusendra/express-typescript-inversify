@@ -8,7 +8,7 @@ export interface IProductItem extends IProduct {
 
 export interface IOrder extends Document {
   customerId: string;
-  products: [IProductItem];
+  items: [IProductItem];
 }
 
 const OrderSchema: Schema = new Schema(
@@ -16,7 +16,7 @@ const OrderSchema: Schema = new Schema(
     customerId: { type: Schema.Types.String, required: true },
     items: [
       {
-        product: {
+        productId: {
           type: Schema.Types.ObjectId,
           ref: "Product",
           required: true,
