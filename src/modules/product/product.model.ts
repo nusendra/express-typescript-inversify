@@ -4,8 +4,11 @@ export interface IProduct extends Document {
   name: string;
 }
 
-const ProductSchema: Schema = new Schema({
-  name: { type: Schema.Types.String, required: true },
-});
+const ProductSchema: Schema = new Schema(
+  {
+    name: { type: Schema.Types.String, required: true },
+  },
+  { timestamps: true }
+);
 
 export default mongoose.model<IProduct>("Product", ProductSchema);
