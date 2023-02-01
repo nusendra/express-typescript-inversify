@@ -5,7 +5,7 @@
 
 .vscode/
 .env
-now-circular-*-services-sa.json
+service-account.json
 ssl/
 
 # Node artifact files
@@ -54,3 +54,4 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+
